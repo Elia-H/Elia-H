@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Page</title>
+    <!-- Link the CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div class="scoreDisplay" id="scoreDisplay">Score: 0</div>
+
+    <!-- Game Over Screen -->
+    <div class="gameOverScreen">
+        <h1>Game Over</h1>
+        <p>Your Score: <span id="finalScore">0</span></p>
+        <p>Click to Restart</p>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pauseMenu">
+        <button id="resumeButton">Resume</button>
+        <button id="homeButton">Home</button>
+    </div>
+
+    <button id="pauseButton">Pause</button>
+
+    <!-- Link the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
