@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #1e90ff, #87CEEB);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 70px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin: 20px;
+            font-size: 24px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #666;
+            transform: scale(1.1);
+        }
+
+        .settings {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        select {
+            font-size: 18px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 2px solid #444;
+        }
+
+        .highScores {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .highScores h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .highScores p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .highScores button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            background-color: #444;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .highScores button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ELIA'S GAME</h1>
+
+    <button class="button" id="playButton">Play</button>
+    <button class="button" id="settingsButton">Settings</button>
+    <button class="button" id="highScoreButton">High Scores</button>
+
+    <div class="settings" id="settings" style="display: none;">
+        <p>Settings - Choose your difficulty</p>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <br>
+        <button class="button" id="backButton">Back</button>
+    </div>
+
+    <div class="highScores" id="highScores">
+        <h2>High Scores</h2>
+        <p>Easy: <span id="easyScore">0</span></p>
+        <p>Medium: <span id="mediumScore">0</span></p>
+        <p>Hard: <span id="hardScore">0</span></p>
+        <button class="button" id="closeHighScoresButton">Close</button>
+    </div>
+
+    <script>
+        const playButton = document.getElementById('playButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const highScoreButton = document.getElementById('highScoreButton');
+        const settingsDiv = document.getElementById('settings');
+        const backButton = document.getElementById('backButton');
+        const highScoresDiv = document.getElementById('highScores');
+        const closeHighScoresButton = document.getElementById('closeHighScoresButton');
+        const difficultySelect = document.getElementById('difficulty');
+
+        // Load selected difficulty from localStorage (if any)
+        const savedDifficulty = localStorage.getItem('difficulty');
+        if (savedDifficulty) {
+            difficultySelect.value = savedDifficulty;
+        }
+
+        // Load and display high scores
+        function loadHighScores() {
+            const easyScore = localStorage.getItem('highScore_easy') || 0;
+            const mediumScore = localStorage.getItem('highScore_medium') || 0;
+            const hardScore = localStorage.getItem('highScore_hard') || 0;
+
+            document.getElementById('easyScore').textContent = easyScore;
+            document.getElementById('mediumScore').textContent = mediumScore;
+            document.getElementById('hardScore').textContent = hardScore;
+        }
+
+        // Event listener for the Play button
+        playButton.addEventListener('click', () => {
+            const selectedDifficulty = difficultySelect.value;
+            localStorage.setItem('difficulty', selectedDifficulty);  // Save the selected difficulty
+            window.location.href = 'game.html';  // Redirect to game page
+        });
+
+        // Event listener for the Settings button
+        settingsButton.addEventListener('click', () => {
+            settingsDiv.style.display = 'block'; // Show settings menu
+        });
+
+        // Event listener for the Back button
+        backButton.addEventListener('click', () => {
+            settingsDiv.style.display = 'none'; // Hide settings menu
+        });
+
+        // Event listener for the High Scores button
+        highScoreButton.addEventListener('click', () => {
+            loadHighScores();
+            highScoresDiv.style.display = 'block'; // Show high scores
+        });
+
+        // Event listener for the Close High Scores button
+        closeHighScoresButton.addEventListener('click', () => {
+            highScoresDiv.style.display = 'none'; // Close high scores modal
+        });
+    </script>
+
+</body>
+</html>
